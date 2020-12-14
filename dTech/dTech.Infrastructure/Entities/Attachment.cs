@@ -9,6 +9,6 @@ namespace dTech.Infrastructure.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public string Route { get; set; }
-        public PTask PTask { get; set; }
+        public Comment Comment { get; set; }
     }
 }

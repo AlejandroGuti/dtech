@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using dTech.Infrastructure.Contexts;
+using dTech.Infrastructure.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -35,7 +37,15 @@ namespace dTech
                     .AddNewtonsoftJson(options =>
                      options.SerializerSettings.ReferenceLoopHandling =
                      Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-
+            services.AddAutoMapper(configuration =>
+            {
+                configuration.CreateMap<Project, Project>()
+                .ReverseMap();
+                configuration.CreateMap<PTask, PTask>()
+                .ReverseMap();
+                configuration.CreateMap<Attachment, Attachment>()
+                .ReverseMap();
+            }, typeof(Startup));
 
         }
 

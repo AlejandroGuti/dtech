@@ -9,6 +9,7 @@ namespace dTech.Infrastructure.Entities
     public class Project
     {
         public int Id { get; set; }
+        [Required]
         public string Title { get; set; }
         public string Description { get; set; }
 
@@ -18,6 +19,6 @@ namespace dTech.Infrastructure.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd hh:mm tt}")]
         public DateTime EndDate { get; set; }
         public ProjectStatus ProjectStatus { get; set; }
-        public ICollection<PTask> MyProperty { get; set; }
+        public ICollection<PTask> PTasks { get; set; }
     }
 }
