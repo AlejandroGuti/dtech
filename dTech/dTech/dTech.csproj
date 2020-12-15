@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\dTech.Domain\dTech.Domain.csproj" />
+    <ProjectReference Include="..\dTech.Infrastructure.Ioc\dTech.Infrastructure.Ioc.csproj" />
     <ProjectReference Include="..\dTech.Infrastructure\dTech.Infrastructure.csproj" />
   </ItemGroup>
 	<ItemGroup>

@@ -1,19 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using dTech.Infrastructure.Contexts;
 using dTech.Infrastructure.Entities;
+using dTech.Infrastructure.Ioc.DependenciesContainer;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace dTech
 {
@@ -30,6 +28,7 @@ namespace dTech
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            RegisterServices(services);
             services.AddDbContext<DTechContext>(options => options
             .UseSqlServer(Configuration.GetConnectionString("dTechConnection")));
 
@@ -47,6 +46,46 @@ namespace dTech
                 .ReverseMap();
             }, typeof(Startup));
 
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("FullPages", builder =>
+                builder
+                //.WithOrigins("http://localhost:4200/")
+                .WithOrigins("*")
+                .WithMethods("*")
+                .WithHeaders("*"));
+            });
+            services.AddIdentity<User, IdentityRole>(cfg =>
+            {
+                cfg.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
+                cfg.SignIn.RequireConfirmedEmail = true;
+                cfg.User.RequireUniqueEmail = true;
+                cfg.Password.RequireDigit = false;
+                cfg.Password.RequiredUniqueChars = 0;
+                cfg.Password.RequireLowercase = false;
+                cfg.Password.RequireNonAlphanumeric = false;
+                cfg.Password.RequireUppercase = false;
+            })
+               .AddDefaultTokenProviders()
+               .AddEntityFrameworkStores<DTechContext>();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(cfg =>
+                {
+                    cfg.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidIssuer = Configuration["Tokens:Issuer"],
+                        ValidAudience = Configuration["Tokens:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))
+                    };
+                });
+
+
+        }
+        private static void RegisterServices(IServiceCollection services)
+        {
+            DependenciesContainer.RegisterServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,7 +101,7 @@ namespace dTech
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseCors();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

@@ -1,6 +1,7 @@
 ﻿
 using dTech.Common.DTOs;
 using dTech.Domain.Services.Interfaces;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace dTech.Controllers.V1
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    //[EnableCors("NewShore")]
+    [EnableCors("FullPages")]
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _accountService;
@@ -61,5 +62,9 @@ namespace dTech.Controllers.V1
             }
         }
 
+
+
     }
+
+
 }
