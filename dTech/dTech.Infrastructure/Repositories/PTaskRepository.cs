@@ -11,12 +11,10 @@ namespace dTech.Infrastructure.Repositories.Interfaces
     public class PTaskRepository :IPTaskRepository
     {
         private readonly DTechContext _context;
-        private readonly IMapper _mapper;
 
-        public PTaskRepository(DTechContext context, IMapper mapper)
+        public PTaskRepository(DTechContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
         public async Task<int> Create(PTask data, int ProjectId)
         {

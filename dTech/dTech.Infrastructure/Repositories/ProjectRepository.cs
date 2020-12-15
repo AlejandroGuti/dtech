@@ -12,12 +12,10 @@ namespace dTech.Infrastructure.Repositories
     public class ProjectRepository: IProjectRepository
     {
         private readonly DTechContext _context;
-        private readonly IMapper _mapper;
 
-        public ProjectRepository(DTechContext context, IMapper mapper)
+        public ProjectRepository(DTechContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
         public async Task<int> Create(Project data)
         {

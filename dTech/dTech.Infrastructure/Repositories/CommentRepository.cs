@@ -14,15 +14,14 @@ namespace dTech.Infrastructure.Repositories
     public class CommentRepository: ICommentRepository
     {
         private readonly DTechContext _context;
-        private readonly IMapper _mapper;
 
-        public CommentRepository(DTechContext context, IMapper mapper)
+        public CommentRepository(DTechContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
-        public async Task<int> Create(Comment data)
+        public async Task<int> Create(Comment data, int PTaskId)
         {
+            data.PTask = await _context.PTasks.FindAsync(PTaskId);
             _context.Comment.Add(data);
             await _context.SaveChangesAsync();
             return data.Id;
@@ -60,12 +59,9 @@ namespace dTech.Infrastructure.Repositories
             return data;
         }
 
-        public async Task<int> Update(int id, Comment data)
+        public async Task<int> Update(Comment data)
         {
-            Comment comment = await _context.Comment.FindAsync(id);
-            if (comment == null) { return 0; }
-            Comment info = _mapper.Map<Comment>(data);
-            _context.Comment.Update(info);
+            _context.Comment.Update(data);
             await _context.SaveChangesAsync();
             return 1;
         }

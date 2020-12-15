@@ -8,10 +8,10 @@ namespace dTech.Infrastructure.Repositories.Interfaces
 {
     public interface ICommentRepository
     {
-        Task<int> Create(Comment data);
+        Task<int> Create(Comment data, int PTaskId);
         Task<int> Delete(int id);
         Task<ICollection<Comment>> FindAll();
         Task<Comment> FindById(int id);
-        Task<int> Update(int id, Comment data);
+        Task<int> Update(Comment data);
     }
 }

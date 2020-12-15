@@ -16,13 +16,11 @@ namespace dTech.Domain.Services
     {
         private readonly IPTaskRepository _pTaskRepository;
         private readonly IMapper _mapper;
-        private readonly IProjectRepository _projectRepository;
 
-        public PTaskService(IPTaskRepository pTaskRepository, IMapper mapper, IProjectRepository projectRepository)
+        public PTaskService(IPTaskRepository pTaskRepository, IMapper mapper)
         {
             _pTaskRepository = pTaskRepository;
             _mapper = mapper;
-            _projectRepository = projectRepository;
         }
         public async Task<Response> Create(PTaskRequest model)
         {
