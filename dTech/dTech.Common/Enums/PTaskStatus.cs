@@ -6,6 +6,8 @@ namespace dTech.Common.Enums
 {
     public enum PTaskStatus
     {
-       
+        New,
+        Progress,
+        Done,
     }
 }

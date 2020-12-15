@@ -6,14 +6,15 @@ using System.Text;
 
 namespace dTech.Common.DTOs
 {
-    public class ProjectRequest
+    public class PTaskRequest
     {
         [Required]
         public string Title { get; set; }
-        [Required]
         public string Description { get; set; }
+        public PTaskStatus PTaskStatus { get; set; }
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd hh:mm tt}")]
         public DateTime EndDate { get; set; }
-        public ProjectStatus ProjectStatus { get; set; }
+        [Required]
+        public int ProjectId { get; set; }
     }
 }

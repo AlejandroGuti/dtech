@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace dTech.Infrastructure.Repositories.Interfaces
 {
-    public class PTaskRepository
+    public class PTaskRepository :IPTaskRepository
     {
         private readonly DTechContext _context;
         private readonly IMapper _mapper;
@@ -18,8 +18,9 @@ namespace dTech.Infrastructure.Repositories.Interfaces
             _context = context;
             _mapper = mapper;
         }
-        public async Task<int> Create(PTask data)
+        public async Task<int> Create(PTask data, int ProjectId)
         {
+            data.Project= await _context.Projects.FindAsync(ProjectId);
             _context.PTasks.Add(data);
             await _context.SaveChangesAsync();
             return data.Id;
@@ -58,12 +59,9 @@ namespace dTech.Infrastructure.Repositories.Interfaces
             return data;
         }
 
-        public async Task<int> Update(int id, PTask data)
+        public async Task<int> Update(PTask data)
         {
-            PTask pTask = await _context.PTasks.FindAsync(id);
-            if (pTask == null) { return 0; }
-            PTask info = _mapper.Map<PTask>(data);
-            _context.PTasks.Update(info);
+            _context.PTasks.Update(data);
             await _context.SaveChangesAsync();
             return 1;
         }

@@ -1,4 +1,5 @@
 using AutoMapper;
+using dTech.Common.DTOs;
 using dTech.Infrastructure.Contexts;
 using dTech.Infrastructure.Entities;
 using dTech.Infrastructure.Ioc.DependenciesContainer;
@@ -80,7 +81,17 @@ namespace dTech
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))
                     };
                 });
+            services.AddAutoMapper(configuration =>
+            {
 
+                configuration.CreateMap<Project, ProjectRequest>()
+                .ReverseMap();
+                configuration.CreateMap<PTask, PTaskRequest>()
+                .ReverseMap();
+                configuration.CreateMap<Comment, CommentRequest>()
+                .ReverseMap();
+
+            }, typeof(Startup));
 
         }
         private static void RegisterServices(IServiceCollection services)

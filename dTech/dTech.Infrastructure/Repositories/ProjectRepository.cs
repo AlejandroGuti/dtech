@@ -60,12 +60,9 @@ namespace dTech.Infrastructure.Repositories
             return data;
         }
 
-        public async Task<int> Update(int id, Project data)
+        public async Task<int> Update(Project data)
         {
-            Project project = await _context.Projects.FindAsync(id);
-            if (project == null) { return 0; }
-            Project info = _mapper.Map<Project>(data);
-            _context.Projects.Update(info);
+            _context.Projects.Update(data);
             await _context.SaveChangesAsync();
             return 1;
         }

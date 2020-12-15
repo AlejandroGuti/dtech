@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace dTech.Infrastructure.Repositories.Interfaces
 {
-    interface ICommentRepository
+    public interface ICommentRepository
     {
         Task<int> Create(Comment data);
         Task<int> Delete(int id);

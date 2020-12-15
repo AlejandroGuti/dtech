@@ -5,7 +5,7 @@ using System.Text;
 
 namespace dTech.Common.Enums
 {
-    public enum GeneralMessages
+    public enum Messages
     {
         [Description("It was created")]
         Created,
@@ -20,7 +20,9 @@ namespace dTech.Common.Enums
         [Description("Found")]
         Found,
         [Description("Not Found")]
-        NotFound
+        NotFound,
+        Delete,
+        NotDelete
 
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace dTech.Infrastructure.Repositories.Interfaces
 {
-    interface IAttachmentRepository
+    public interface IAttachmentRepository
     {
         Task<int> Create(ICollection<Attachment> model);
         Task<int> Delete(int id);

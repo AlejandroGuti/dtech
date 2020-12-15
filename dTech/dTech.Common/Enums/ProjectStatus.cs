@@ -6,5 +6,8 @@ namespace dTech.Common.Enums
 {
     public enum ProjectStatus
     {
+        New,
+        Progress,
+        Complete,
     }
 }

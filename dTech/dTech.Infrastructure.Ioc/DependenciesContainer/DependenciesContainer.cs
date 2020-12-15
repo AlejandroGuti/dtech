@@ -16,8 +16,12 @@ namespace dTech.Infrastructure.Ioc.DependenciesContainer
         {
             services.AddTransient<SeedDb>();
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IProjectRepository, ProjectRepository>();
+            services.AddTransient<ICommentRepository, CommentRepository>();
+            services.AddTransient<IPTaskRepository, PTaskRepository>();
 
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IProjectService, ProjectService>();
 
         }
     }

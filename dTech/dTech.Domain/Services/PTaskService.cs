@@ -7,28 +7,29 @@ using dTech.Infrastructure.Entities;
 using dTech.Infrastructure.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace dTech.Domain.Services
 {
-    public class ProjectService:IProjectService
+    public class PTaskService: IPTaskService
     {
-        private readonly IProjectRepository _projectRepository;
+        private readonly IPTaskRepository _pTaskRepository;
         private readonly IMapper _mapper;
-        public ProjectService(IProjectRepository projectRepository, IMapper mapper)
+        private readonly IProjectRepository _projectRepository;
+
+        public PTaskService(IPTaskRepository pTaskRepository, IMapper mapper, IProjectRepository projectRepository)
         {
-            _projectRepository = projectRepository;
+            _pTaskRepository = pTaskRepository;
             _mapper = mapper;
-
+            _projectRepository = projectRepository;
         }
-        public async Task<Response> Create(ProjectRequest model)
+        public async Task<Response> Create(PTaskRequest model)
         {
-            Project info = _mapper.Map<Project>(model);
-            info.CreationDate = DateTime.Now;
-            info.ProjectStatus = ProjectStatus.New;
-            int result = await _projectRepository.Create(info);
 
-
+            PTask info = _mapper.Map<PTask>(model);
+            info.PTaskStatus = PTaskStatus.New;
+            int result = await _pTaskRepository.Create(info,model.ProjectId);
 
             if (result > 0)
             {
@@ -50,7 +51,7 @@ namespace dTech.Domain.Services
         }
         public async Task<Response> Delete(int id)
         {
-            int result = await _projectRepository.Delete(id);
+            int result = await _pTaskRepository.Delete(id);
 
             if (result > 0)
             {
@@ -74,7 +75,7 @@ namespace dTech.Domain.Services
         }
         public async Task<Response> FindAll()
         {
-            ICollection<Project> result = await _projectRepository.FindAll();
+            ICollection<PTask> result = await _pTaskRepository.FindAll();
 
             if (result.Count > 0)
             {
@@ -97,7 +98,7 @@ namespace dTech.Domain.Services
         }
         public async Task<Response> FindById(int id)
         {
-            Project result = await _projectRepository.FindById(id);
+            PTask result = await _pTaskRepository.FindById(id);
 
             if (result != null)
             {
@@ -118,10 +119,10 @@ namespace dTech.Domain.Services
                 };
             }
         }
-        public async Task<Response> Update(int id, ProjectRequest request)
+        public async Task<Response> Update(int id, PTaskRequest request)
         {
-            Project project = await _projectRepository.FindById(id);
-            if (project == null)
+            PTask pTask = await _pTaskRepository.FindById(id);
+            if (pTask == null)
             {
                 return new Response
                 {
@@ -129,11 +130,11 @@ namespace dTech.Domain.Services
                     Message = Messages.NotFound.ToString()
                 };
             }
-            project.Title = request.Title;
-            project.Description = request.Description;
-            project.EndDate = project.EndDate;
-            project.ProjectStatus = request.ProjectStatus;
-            int result = await _projectRepository.Update(project);
+            pTask.Title = request.Title;
+            pTask.Description = request.Description;
+            pTask.EndDate = request.EndDate;
+            pTask.PTaskStatus = request.PTaskStatus;
+            int result = await _pTaskRepository.Update(pTask);
 
             if (result > 0)
             {
@@ -154,7 +155,5 @@ namespace dTech.Domain.Services
                 };
             }
         }
-
-
     }
 }

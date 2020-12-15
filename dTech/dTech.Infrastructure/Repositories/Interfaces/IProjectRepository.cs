@@ -12,6 +12,6 @@ namespace dTech.Infrastructure.Repositories.Interfaces
         Task<int> Delete(int id);
         Task<ICollection<Project>> FindAll();
         Task<Project> FindById(int id);
-        Task<int> Update(int id, Project data);
+        Task<int> Update(Project data);
     }
 }
