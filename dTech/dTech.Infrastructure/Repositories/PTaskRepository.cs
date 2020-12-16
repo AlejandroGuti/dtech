@@ -45,6 +45,10 @@ namespace dTech.Infrastructure.Repositories.Interfaces
         {
             return await _context.PTasks.ToListAsync();
         }
+        public async Task<ICollection<PTask>> FindAllPProject( int ProjectId)
+        {
+            return await _context.PTasks.Where(p=>p.Project.Id == ProjectId).ToListAsync();
+        }
 
         public async Task<PTask> FindById(int id)
         {

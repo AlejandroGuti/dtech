@@ -13,5 +13,6 @@ namespace dTech.Infrastructure.Repositories.Interfaces
         Task<ICollection<Comment>> FindAll();
         Task<Comment> FindById(int id);
         Task<int> Update(Comment data);
+        Task<ICollection<Comment>> FindAllPTask(int TaskId);
     }
 }

@@ -13,5 +13,6 @@ namespace dTech.Infrastructure.Repositories.Interfaces
         Task<ICollection<PTask>> FindAll();
         Task<PTask> FindById(int id);
         Task<int> Update(PTask data);
+        Task<ICollection<PTask>> FindAllPProject(int ProjectId);
     }
 }

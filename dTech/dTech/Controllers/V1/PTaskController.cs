@@ -41,7 +41,7 @@ namespace dTech.Controllers.V1
         }
 
         [HttpGet()]
-        public async Task<ActionResult> FindInvoiceList()
+        public async Task<ActionResult> FindTaskList()
         {
 
 
@@ -49,6 +49,21 @@ namespace dTech.Controllers.V1
             {
 
                 return Ok(await _pTaskService.FindAll());
+            }
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
+
+        }
+        [HttpGet("AllPProject")]
+        public async Task<ActionResult> FindAllPProject([FromBody] RequestId requestId)
+        {
+            try
+            {
+
+                return Ok(await _pTaskService.FindAllPProject(requestId));
             }
             catch (Exception)
             {

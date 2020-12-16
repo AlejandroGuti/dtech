@@ -49,6 +49,10 @@ namespace dTech.Infrastructure.Repositories
             return await _context.Comment.ToListAsync();
         }
 
+        public async Task<ICollection<Comment>> FindAllPTask(int TaskId)
+        {
+            return await _context.Comment.Where(p => p.PTask.Id == TaskId).ToListAsync();
+        }
         public async Task<Comment> FindById(int id)
         {
             Comment data = await _context.Comment

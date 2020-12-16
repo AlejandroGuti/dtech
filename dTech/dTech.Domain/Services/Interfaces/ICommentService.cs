@@ -14,5 +14,6 @@ namespace dTech.Domain.Services.Interfaces
         Task<Response> FindAll();
         Task<Response> FindById(int id);
         Task<Response> Update(int id, CommentRequest request);
+        Task<Response> FindAllPTask(RequestId requestId);
     }
 }

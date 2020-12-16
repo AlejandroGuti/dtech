@@ -94,6 +94,29 @@ namespace dTech.Domain.Services
                 };
             }
         }
+        public async Task<Response> FindAllPTask(RequestId requestId)
+        {
+            ICollection<Comment> result = await _commentRepository.FindAllPTask(requestId.Id);
+
+            if (result.Count > 0)
+            {
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = Messages.Found.ToString(),
+                    Result = result
+
+                };
+            }
+            else
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = Messages.NotFound.ToString()
+                };
+            }
+        }
         public async Task<Response> FindById(int id)
         {
             Comment result = await _commentRepository.FindById(id);

@@ -94,6 +94,29 @@ namespace dTech.Domain.Services
                 };
             }
         }
+        public async Task<Response> FindAllPProject(RequestId requestId)
+        {
+            ICollection<PTask> result = await _pTaskRepository.FindAllPProject(requestId.Id);
+
+            if (result.Count > 0)
+            {
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = Messages.Found.ToString(),
+                    Result = result
+
+                };
+            }
+            else
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = Messages.NotFound.ToString()
+                };
+            }
+        }
         public async Task<Response> FindById(int id)
         {
             PTask result = await _pTaskRepository.FindById(id);

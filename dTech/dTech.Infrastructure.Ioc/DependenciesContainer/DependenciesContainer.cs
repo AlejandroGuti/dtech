@@ -19,9 +19,14 @@ namespace dTech.Infrastructure.Ioc.DependenciesContainer
             services.AddTransient<IProjectRepository, ProjectRepository>();
             services.AddTransient<ICommentRepository, CommentRepository>();
             services.AddTransient<IPTaskRepository, PTaskRepository>();
+            services.AddTransient<IAttachmentRepository, AttachmentRepository>();
 
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IProjectService, ProjectService>();
+            services.AddScoped<IAttachmentService, AttachmentServices>();
+            services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IPTaskService, PTaskService>();
+            services.AddScoped<INumberService, NumberService>();
 
         }
     }
